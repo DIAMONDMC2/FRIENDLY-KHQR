@@ -1,0 +1,95 @@
+---
+import { ClientRouter } from 'astro:transitions'
+
+import '../styles/global.css'
+import GithubIcon from '@/components/logo/github'
+import NpmIcon from '@/components/logo/npm'
+
+interface Props {
+  title: string
+  description?: string
+}
+
+const {
+  title,
+  description = 'Build and test Cambodia-ready QR payment flows with the KHQR SDK.',
+} = Astro.props
+const currentPath = Astro.url.pathname
+
+const links = [
+  { href: '/', label: 'Overview', index: '01' },
+  { href: '/docs', label: 'Docs', index: '02' },
+  { href: '/generator', label: 'QR Studio', index: '03' },
+  { href: '/api-tester', label: 'API Console', index: '04' },
+]
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/preview.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/preview.png" />
+    <ClientRouter />
+  </head>
+  <body>
+    <div class="site-frame">
+      <header class="site-header">
+        <a href="/" class="brand" aria-label="KHQR SDK home">
+          <span class="brand-mark"><img src="/icon.svg" alt="" /></span>
+          <span class="brand-copy">
+            <strong>KHQR</strong>
+            <small>Developer kit / Cambodia</small>
+          </span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary navigation">
+          {links.map((link) => (
+            <a
+              href={link.href}
+              class:list={['nav-link', { active: currentPath === link.href }]}
+              aria-current={currentPath === link.href ? 'page' : undefined}
+            >
+              <span>{link.index}</span>{link.label}
+            </a>
+          ))}
+        </nav>
+
+        <div class="source-links">
+          <a href="https://www.npmjs.com/package/@manethpak/khqr-sdk" target="_blank" rel="noopener noreferrer" aria-label="View package on npm">
+            <NpmIcon className="size-5" />
+          </a>
+          <a href="https://github.com/manethpak/khqr-sdk" target="_blank" rel="noopener noreferrer" aria-label="View source on GitHub">
+            <GithubIcon className="size-5" />
+          </a>
+        </div>
+      </header>
+
+      <main class="site-main">
+        <slot />
+      </main>
+
+      <footer class="site-footer">
+        <p><span class="status-dot"></span>Open-source payment infrastructure</p>
+        <p>Built for Cambodia's Bakong ecosystem · <a href="https://github.com/manethpak/khqr-sdk" target="_blank" rel="noopener noreferrer">View source</a></p>
+      </footer>
+    </div>
+  </body>
+</html>
