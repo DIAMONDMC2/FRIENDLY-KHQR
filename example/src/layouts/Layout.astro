@@ -1,9 +1,12 @@
 ---
 import { ClientRouter } from 'astro:transitions'
+import { inject } from '@vercel/analytics'
 
 import '../styles/global.css'
 import GithubIcon from '@/components/logo/github'
 import NpmIcon from '@/components/logo/npm'
+
+inject()
 
 interface Props {
   title: string

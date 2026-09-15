@@ -1,0 +1,47 @@
+# Vercel Web Analytics Installation Report
+
+## Summary
+Successfully installed and configured Vercel Web Analytics for this Astro project following the latest official documentation from https://vercel.com/docs/analytics/quickstart.
+
+## Changes Made
+
+### 1. Package Installation
+- **Added:** `@vercel/analytics` version 2.0.1 to dependencies
+- **Updated:** pnpm-lock.yaml with new package and its dependencies
+
+### 2. Analytics Integration
+- **Modified:** `src/layouts/Layout.astro`
+  - Imported the `inject` function from `@vercel/analytics`
+  - Called `inject()` in the frontmatter to enable analytics tracking
+  - This approach is the recommended method for Astro projects per the official documentation
+
+### 3. Existing Configuration
+- **Verified:** `astro.config.mjs` already has `webAnalytics: { enabled: true }` configured in the Vercel adapter
+  - This was already present in the project configuration
+  - No changes were needed to the config file
+
+## Implementation Details
+
+The implementation follows Vercel's official Astro-specific guidelines:
+1. The `@vercel/analytics` package was installed via pnpm (the project's package manager)
+2. The `inject()` function is called in the base layout file, ensuring analytics run on all pages
+3. The integration works with the existing Vercel adapter configuration
+
+## Testing & Verification
+
+✅ **Type Check:** Passed (`pnpm run check`) - 0 errors, 0 warnings
+✅ **Build Test:** Successful (`pnpm run build`) - completed in 8.83s
+✅ **No Breaking Changes:** All existing functionality preserved
+
+## Files Modified
+- `example/package.json` - Added @vercel/analytics dependency
+- `example/pnpm-lock.yaml` - Updated with new package lock information
+- `example/src/layouts/Layout.astro` - Added analytics injection
+
+## Next Steps
+Once deployed to Vercel, analytics data will automatically start being collected. The data can be viewed in the Vercel dashboard under the Analytics section of the project.
+
+## Notes
+- Analytics will only track data in production deployments
+- No additional configuration is required for basic page view tracking
+- The implementation is minimal and follows best practices for Astro projects
